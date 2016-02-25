@@ -1,0 +1,35 @@
+{
+  "name": "vacation_wish_list",
+  "version": "1.0.0",
+  "description": "My Application will help users to organize their vacation wishes,
+  and motivate them to ACTUALLY DO IT!",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emineKoc/vacation-wish-list-app.git"
+  },
+  "keywords": [
+    "destinations",
+    "vacations",
+    "things",
+    "to",
+    "do"
+  ],
+  "author": "Emine Koc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emineKoc/vacation-wish-list-app/issues"
+  },
+  "homepage": "https://github.com/emineKoc/vacation-wish-list-app#readme",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "morgan": "^1.7.0",
+    "path": "^0.12.7",
+    "pg": "^4.5.1"
+  }
+}
