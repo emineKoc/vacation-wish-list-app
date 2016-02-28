@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include ../partials/head %>
+</head>
+<body>
+  <header>
+    <%- include ../partials/nav %>
+  </header>
+  <div class="container">
+  <div class="starter-template">
+  <h4> There are  <%= allUsers.length  %>  users in your website </h4>
+  <table class="table">
+    <thead>
+      <tr id="AllUsers" class="table table-striped">
+        <th class="filters"> First Name</th>
+        <th class="filters"> Last Name</th>
+        <th class="filters"> Email</th>
+        <th class="filters"> Current City</th>
+        <th class="filters"> Action</th>
+       </tr>
+    </thead>
+    <tbody>
+
+<% allUsers.forEach(function(user) {%>
+    <tr>
+    <td><%=  user.f_name %> </td>
+    <td><%=  user.l_name %> </td>
+    <td><%=  user.email %> </td>
+    <td><%=  user.current_city %> </td>
+    <td>  <button href="/users/edit">edit</button>
+      <form action="/users/<%=user.id%>?_method=DELETE" method="POST">
+        <input type="submit" value="Delete">
+      </form>
+    </td>
+  </tr>
+      <%  }) %>
+</table>
+
+
+   </div></div>
+  <%- include ../partials/footer %>
+</body>
+</html>

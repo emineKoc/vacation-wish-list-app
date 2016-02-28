@@ -1,33 +1,55 @@
+pry = require('pryjs')
+
 'use strict'
 var express = require('express')
 var app = express();
+var pg = require('pg');
 var path = require('path');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var connectionString = "postgres://eminekoc:1297@localhost/vacations";
 
-var massagesRouter = require('./routes/someRoute');
+var  session = require('express-session');
+var  pgSession= require('connect-pg-simple')(session);
 
-app.use(morgan('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+var userRoutes = require( path.join(__dirname, '/routes/users'));
+
+
+app.use(session({
+  store : new pgSession({
+    pg : pg,
+    conString : connectionString,
+    tableName : 'session'
+  }),
+  secret : 'soooScretanythigWewant',
+  saveUninitialized:true,
+  resave : false,
+  cookie : {maxAge : 30 * 24 * 60 * 60 * 1000 }  //default setting 30*24* 06 * 60 * 1000  => 30 days
+}))
+
+
+
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(morgan('short'));
 app.use(methodOverride('_method'));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
-app.get('/', (req, res) => {
-  res.send('this will be my home page');
+app.get('/', function(req, res) {
+  console.log("my req.session.user", req.session.user)
+  res.render('pages/home_profile', { user: req.session.user})
 });
 
-app.use('/someRoute', massagesRouter);
+app.use('/users', userRoutes)
 
 
 
-app.listen(process.env.PORT, function() {
-  console.log(`Listening on port ${process.env.PORT}`);
-});
-Status API Training Shop Blog About Pricing
-© 2016 GitHub, Inc. Terms Privacy Security Contact Help
+var port = process.env.PORT || 3000;
+var server = app.listen(port)

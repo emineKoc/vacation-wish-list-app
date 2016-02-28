@@ -1,0 +1,40 @@
+
+.starter-template {
+  padding: 70px 15px;
+  text-align: center;
+}
+
+.jumbotron {
+  text-align: center;
+  height:43em;
+  position: relative;
+  margin-top: -100px;
+  background-image: url('../img/4.jpg');
+  background-size: cover;
+}
+body {
+  padding-top: 50px;
+}
+
+#form-login {
+  padding-top: 10em;
+  padding-left: 50%;
+  padding-right;: 10em;
+}
+
+.panel-body {
+  background-color: none;
+}
+
+th {
+  text-align: center;
+}
+
+
+.edit-form {
+  padding-top: 10em;
+  margin-top:10em;
+  text-align: center;
+  margin-left: auto;
+  position: relative;
+}
