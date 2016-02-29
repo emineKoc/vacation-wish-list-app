@@ -57,19 +57,48 @@ function createUser(req, res, next) {
         console.log(err)
         return res.status(500).json({ success: false, data: err })
       }
-      var query = client.query("INSERT INTO users (f_name, l_name, current_city, email, password) VALUES ($1, $2, $3, $4, $5);", [req.body.f_name, req.body.l_name, req.body.current_city, email, hash],
+      var query = client.query("INSERT INTO users (f_name, l_name, current_city, email, password) VALUES ($1, $2, $3, $4, $5) returning id;", [req.body.f_name, req.body.l_name, req.body.current_city, email, hash],
       function(err,result){
-        done()
+        console.log(result.rows[0].id);
+        addDefaultValuetoWishList(result.rows[0].id);
+        done();
         if (err){
           return console.error('error running query' , err)
         }
-        next()
+        next();
       })
     })
   }
 }
 
-
+function addDefaultValuetoWishList( user_id ) {
+  console.log(user_id);
+  pg.connect(connectionString, function(err, client, done){
+    if (err){
+      done()
+      console.log(err)
+      return res.status(500).json({ success: false, data: err })
+    }
+    client.query( "SELECT id from attractions;",
+    function(err,result){
+      done()
+      if (err){
+        return console.error('error running query' , err)
+      }
+      console.log('this should be all attractions id', result.rows)
+      var allattractionIDs = result.rows;
+      allattractionIDs.forEach(function(el){
+        client.query("INSERT INTO wishlist (user_id, attraction_id) VALUES ($1, $2);", [user_id, el.id],
+        function(err,result){
+          done()
+          if (err){
+            return console.error('error running query' , err)
+          }
+        })
+      })
+    })
+  })
+}
 
 // show all users function for admin only
 
@@ -100,7 +129,8 @@ function deleteUser(req, res, next) {
       console.log(err);
       return res.status(500).json({ success: false, data: err});
     }
-    var query = client.query("DELETE FROM USERS WHERE ID = $1;",[req.params.id], function(err, result) {
+    var query = client.query("DELETE FROM users WHERE id = $1;",[req.params.id], function(err, result) {
+      console.log(req.params.id)
       done()
       if(err) {
         return console.error('error, running query', err);
@@ -136,7 +166,7 @@ function editUser(req, res, next) {
         console.log(err);
         res.status(500).json({success: false, data: err});
       }
-   var query =client.query('UPDATE users SET f_name = $1, l_name = $2, current_city = $3  WHERE id = $4', [req.body.f_name,req.body.l_name,req.body.current_city, req.params.id], (err, results) => {
+   var query = client.query('UPDATE users SET f_name = $1, l_name = $2, current_city = $3  WHERE id = $4', [req.body.f_name,req.body.l_name,req.body.current_city, req.params.id], (err, results) => {
         done();
         if (err) {
           console.error('Error with query', err);

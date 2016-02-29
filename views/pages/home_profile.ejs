@@ -3,6 +3,9 @@
 <head>
   <%- include ../partials/head %>
 </head>
+<header>
+  <%- include ../partials/nav %>
+</header>
 <% if (!user) {%>
   <div class="jumbotron" class="col-md-12">
   <div class="homepics">
@@ -12,16 +15,11 @@
         </div>
       </div>
   </div>
-
-          <% } %>
-
-
-<% if (user) {%>
-  
-  <%- include ./_profile %>
-
   <% } %>
 
+<% if (user) {%>
+  <%- include ./_profile %>
+  <% } %>
         </div>
       </div><!-- /.container -->
       <%- include ../partials/footer %>

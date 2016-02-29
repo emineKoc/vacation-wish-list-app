@@ -7,28 +7,67 @@
   <header>
     <%- include ../../partials/nav %>
   </header>
+
+<%if (!user) {%>
+
   <div class="container">
   <div class="starter-template">
   <% allAttractions.forEach(function(attraction){%>
+<%     console.log(attraction) %>
     <div class="row">
       <div class="col-sm-6 col-md-4">
         <div class="thumbnail">
           <img src="<%= attraction.image %>" width="350">
           <div class="caption">
-            <h4><a href="/attractions/<%= attraction.id %>"><%= attraction.name %> </a></h4>
+            <h4> <a href="attractions/<%= attraction.id %>" > <%= attraction.name %> </a></h4>
         <span><%= attraction.location %> </span>
-    <form action="/attractions/<%=attraction.id%>?_method=DELETE" method="POST">
-      <input type="submit" value="Delete">
-    </form>
-    <a href="/attractions/<%= attraction.id %>/edit">
-  <button>Edit</button></a>
+        <form action="/attractions/<%=attraction.id%>?_method=DELETE" method="POST">
+          <input type="submit" value="Delete">
+        </form>
+        <a href="/attractions/<%= attraction.id %>/edit">
+          <button>Edit</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% })  %>
 </div>
 </div>
+<% }  %>
+
+
+
+<% if (user) { %>
+  <div class="container">
+  <div class="starter-template">
+  <% allAttractions.forEach(function(attraction){%>
+<%     console.log(attraction) %>
+    <div class="row">
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <img src="<%= attraction.image %>" width="350">
+          <div class="caption">
+            <h4> <a href="attractions/<%= user.id %>/<%= attraction.id %>" > <%= attraction.name %> </a></h4>
+        <span><%= attraction.location %> </span>
+        <form action="/attractions/<%=attraction.id%>?_method=DELETE" method="POST">
+          <input type="submit" value="Delete">
+        </form>
+        <a href="/attractions/<%= attraction.id %>/edit">
+          <button>Edit</button></a>
+          <form action="attractions/<%=attraction.id%>?_method=PUT" method="POST">
+            <input type="submit" value="Add to my wishlist">
+          </form>
+          <form action="attractions/<%=attraction.id%>?_method=PUT" method="POST">
+            <input type="submit" value="I have been here">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% })  %>
 </div>
 </div>
-<% })  %>
-</div>
-</div>
+<% }  %>
 
   </body>
   </html>

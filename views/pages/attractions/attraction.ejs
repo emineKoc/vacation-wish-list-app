@@ -17,7 +17,7 @@
             <p><%= single_attraction.description %> </p>
             <p><%= single_attraction.besttimetodo %> </p>
           </div>
-          <form action="/attractions/<%=single_attraction.id%>?_method=DELETE" method="POST">
+          <form action="/attractions/<%= single_attraction.id %>?_method=DELETE" method="POST">
             <input type="submit" value="Delete">
           </form>
           <a href="/attractions/<%= single_attraction.id %>/edit">

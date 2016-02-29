@@ -31,6 +31,6 @@ CREATE TABLE wishlist
   user_id integer references users,
   attraction_id integer references attractions,
   wish boolean default false,
-  haveBeen boolean default false,
+  havebeen boolean default false,
   PRIMARY KEY (user_id, attraction_id)
 );

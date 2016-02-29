@@ -9,7 +9,7 @@
    <div class="starter-template">
      <div class="edit-form">
        <div class="col-lg-6">
-         <form action="/users/<%= oneUser.id %>?_method=PUT" method="POST">
+         <form action="/users/<%=oneUser.id%>?_method=PUT" method="POST">
            <div class="form-group">
              <label>First Name:</label>
              <input type="text" for="f_name" name="f_name" class="form-control" placeholder="First Name" value="<%= oneUser.f_name %>">

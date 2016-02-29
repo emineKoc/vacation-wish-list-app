@@ -42,7 +42,6 @@ users.route('/login')
   // the destination page well before we finished sending the response to the client."
 
 req.session.save(function() {
-    console.log('userdddd/login' , req.session.user);
     res.redirect('/');
   });
 })
@@ -72,8 +71,8 @@ users.route('/:id')
 users.route('/:id/edit')
 .get( db.showOneUser, (req, res) => {
   res.render('pages/editUser', { oneUser: res.rows[0] , user: req.session.user});
-  console.log('this is the id of logged in user', user )
 })
+
 
 
 
