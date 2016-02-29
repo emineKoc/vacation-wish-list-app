@@ -1,8 +1,9 @@
 'use strict';
 var pg = require('pg');
-if(process.env.ENVIRONMENT =="production") {
+if(process.env.NODE_ENV ==="production") {
+  var connectionString = process.env.DATABASE_URL;
 }else{
-  var connectionString = "postgres://eminekoc:1297@localhost/vacations";
+  var connectionString = process.env.DB_URL;
 }
 //heroku logs.set the environment production
 

@@ -33,7 +33,6 @@ attractions.route('/:id/edit')
 .get( db.attractionDetails, (req, res) => {
   res.render('pages/attractions/edit_attraction', { single_attraction: res.attraction[0], user: req.session.user });
 })
-g
 // attractions.route('/user/')
 // .get( db.showAllAttractionstoUser, (req, res) =>  {
 //   var category = req.query.category;

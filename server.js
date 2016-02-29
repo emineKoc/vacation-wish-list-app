@@ -5,10 +5,16 @@ var express = require('express')
 var app = express();
 var pg = require('pg');
 var path = require('path');
+require('dotenv').config();
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
-var connectionString = "postgres://eminekoc:1297@localhost/vacations";
+
+if(process.env.NODE_ENV ==="production") {
+  var connectionString = process.env.DATABASE_URL;
+}else{
+  var connectionString = process.env.DB_URL;
+}
 
 var  session = require('express-session');
 var  pgSession= require('connect-pg-simple')(session);
