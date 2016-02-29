@@ -1,6 +1,5 @@
-DROP TABLE IF EXISTS wish_list;
+DROP TABLE IF EXISTS wishlist;
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS attractions;
 
 
@@ -15,11 +14,6 @@ CREATE TABLE users
   current_city text
 );
 
-CREATE TABLE categories
-(
-  id serial primary key,
-  type text
-);
 
 CREATE TABLE attractions
 (
@@ -27,16 +21,16 @@ CREATE TABLE attractions
   name text,
   location text,
   besttimetodo text,
-  descriptions varchar(350),
+  category text,
+  description text,
   image text
 );
 
-CREATE TABLE wish_list
+CREATE TABLE wishlist
 (
-  id serial primary key,
-  user_id integer references categories,
-  location text,
-  priority text,
-  cat_id integer references categories,
-  attraction_id integer references attractions
+  user_id integer references users,
+  attraction_id integer references attractions,
+  wish boolean default false,
+  haveBeen boolean default false,
+  PRIMARY KEY (user_id, attraction_id)
 );

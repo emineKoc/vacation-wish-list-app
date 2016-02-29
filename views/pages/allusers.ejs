@@ -28,7 +28,8 @@
     <td><%=  user.l_name %> </td>
     <td><%=  user.email %> </td>
     <td><%=  user.current_city %> </td>
-    <td>  <button href="/users/edit">edit</button>
+    <td><a href="/users/<%= user.id %>/edit">
+     <button>Edit</button></a>
       <form action="/users/<%=user.id%>?_method=DELETE" method="POST">
         <input type="submit" value="Delete">
       </form>

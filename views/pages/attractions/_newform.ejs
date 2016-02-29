@@ -1,0 +1,72 @@
+<form class="form-horizontal" action="/attractions" method="POST" >
+<fieldset>
+
+<!-- Form Name -->
+<h2 style = "text-align: center">Attractions</h2>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="name">Name of Attraction</label>
+  <div class="col-md-4">
+  <input id="name" name="name" type="text" placeholder="Name of Attraction" class="form-control input-md">
+
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="location">Location</label>
+  <div class="col-md-4">
+  <input id="location" name="location" type="text" placeholder="Location" class="form-control input-md">
+
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="besttimetodo">Best time to do</label>
+  <div class="col-md-4">
+  <input id="besttimetodo" name="besttimetodo" type="text" placeholder="Best time to do" class="form-control input-md">
+
+  </div>
+</div>
+
+<!-- Textarea -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="description">Description</label>
+  <div class="col-md-4">
+    <textarea class="form-control" id="description" name="description"></textarea>
+  </div>
+</div>
+
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="category">Type of attraction</label>
+  <div class="col-md-4">
+    <select id="category" name="category" class="form-control">
+      <option value="1">Historical</option>
+      <option value="2">Adventure</option>
+      <option value="3">Leissure</option>
+      <option value="4">Cultural</option>
+    </select>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="image">image url</label>
+  <div class="col-md-4">
+  <input id="image" name="image" type="text" placeholder="image url" class="form-control input-md">
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="submit"></label>
+  <div class="col-md-4">
+    <button id="submit" name="submit" class="btn btn-primary">Submit</button>
+  </div>
+</div>
+
+</fieldset>
+</form>

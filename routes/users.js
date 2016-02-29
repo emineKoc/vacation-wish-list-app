@@ -9,7 +9,7 @@ var db = require('./../db/pg');
 //users.route('/')
 users.route('/')
 .get( db.showAllUsers, (req, res) => {
-  res.render('pages/allusers.ejs', { allUsers: res.rows})
+  res.render('pages/allusers.ejs', { allUsers: res.rows , user: req.session.user})
 })
 .post( db.createUser, function(req, res){
   res.redirect('/');
@@ -59,7 +59,7 @@ users.delete('/logout', function(req, res) {
 
 users.route('/:id')
 .get( db.showOneUser, (req, res) => {
-  res.render('pages/each_user', { oneUser: res.rows[0]});
+  res.render('pages/each_user', { oneUser: res.rows[0] , user: req.session.user });
 })
 .put( db.editUser, (req, res) => {
   res.status(303).redirect(`/users/${req.params.id}`);
@@ -71,7 +71,8 @@ users.route('/:id')
 
 users.route('/:id/edit')
 .get( db.showOneUser, (req, res) => {
-  res.render('pages/editUser', { oneUser: res.rows[0]});
+  res.render('pages/editUser', { oneUser: res.rows[0] , user: req.session.user});
+  console.log('this is the id of logged in user', user )
 })
 
 

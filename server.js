@@ -16,6 +16,7 @@ var  pgSession= require('connect-pg-simple')(session);
 app.use(express.static(path.join(__dirname, 'public')));
 
 var userRoutes = require( path.join(__dirname, '/routes/users'));
+var attractionRoutes = require( path.join(__dirname, '/routes/attractions'));
 
 
 app.use(session({
@@ -48,6 +49,7 @@ app.get('/', function(req, res) {
 });
 
 app.use('/users', userRoutes)
+app.use('/attractions', attractionRoutes)
 
 
 

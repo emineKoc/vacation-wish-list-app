@@ -38,3 +38,15 @@ th {
   margin-left: auto;
   position: relative;
 }
+
+
+.logout {
+  position: relative;
+  margin-top:-8%;
+  z-index: 9999;
+  margin-left:90%;
+}
+
+.thumbnail{
+  margin: 2em;
+}
