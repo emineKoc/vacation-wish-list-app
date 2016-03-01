@@ -18,7 +18,7 @@ function createAttraction(req, res, next) {
       return res.status(500).json({ success: false, data: err});
     }
     var query = client.query("INSERT INTO attractions (name,location,besttimetodo,category,description,image) VALUES ($1, $2, $3, $4,$5, $6);",
-    [req.body.name, req.body.location, req.body.besttimetodo,req.body.category, req.body.description, req.body.image ],
+    [req.body.name, req.body.location, req.body.besttimetodo, req.body.category, req.body.description, req.body.image ],
     function(err, result) {
       done()
       if(err) {
@@ -30,28 +30,28 @@ function createAttraction(req, res, next) {
 }
 
 
-function showAllAttractions(req, res, next) {
-  // Get a Postgres client from the connection pool
-  pg.connect(connectionString, function(err, client, done) {
-    // Handle connection errors
-    if(err) {
-      done();
-      console.log(err);
-      return res.status(500).json({ success: false, data: err});
-    }
-    var query = client.query("SELECT id, name, location, besttimetodo, category, description, image from attractions",
-    function(err, result) {
-      done()
-          if(err) {
-            return console.error('error, running query', err);
-          }
-          res.attractions = result.rows
-          next()
-        });
-    });
-  }
+// function showAllAttractions(req, res, next) {
+//   // Get a Postgres client from the connection pool
+//   pg.connect(connectionString, function(err, client, done) {
+//     // Handle connection errors
+//     if(err) {
+//       done();
+//       console.log(err);
+//       return res.status(500).json({ success: false, data: err});
+//     }
+//     var query = client.query("SELECT id, name, location, besttimetodo, category, description, image from attractions",
+//     function(err, result) {
+//       done()
+//           if(err) {
+//             return console.error('error, running query', err);
+//           }
+//           res.attractionspublic = result.rows
+//           next()
+//         });
+//     });
+//   }
 
-  function showAllAttractionstoUser(req, res, next) {
+  function showAllAttractions(req, res, next) {
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
       // Handle connection errors
@@ -60,7 +60,7 @@ function showAllAttractions(req, res, next) {
         console.log(err);
         return res.status(500).json({ success: false, data: err});
       }
-      var query = client.query("SELECT helper.name, helper.location, helper.description, helper.besttimetodo,  helper.category,  helper.image, helper.wish, helper.haveBeen from (SELECT id, name, location, description, besttimetodo,category, image , wishlist.user_id, wishlist.wish, wishlist.haveBeen from attractions inner join wishlist on attractions.id = wishlist.attraction_id ) as helper inner join users on helper.user_id = users.id where helper.wish = false and helper.haveBeen = false and users.id = $1;", [req.session.user.id],
+      var query = client.query("SELECT helper.id, helper.name, helper.location, helper.description, helper.besttimetodo,  helper.category,  helper.image, helper.wish, helper.haveBeen from (SELECT id, name, location, description, besttimetodo, category, image , wishlist.user_id, wishlist.wish, wishlist.haveBeen from attractions inner join wishlist on attractions.id = wishlist.attraction_id ) as helper inner join users on helper.user_id = users.id where helper.wish = false and helper.haveBeen = false and users.id = $1;", [req.session.user.id],
       function(err, result) {
         done()
             if(err) {
@@ -152,7 +152,7 @@ function showAllAttractions(req, res, next) {
           console.log(err);
           return res.status(500).json({ success: false, data: err});
         }
-        var query = client.query("UPDATE wishlist set wish = true where user_id = $1 and attraction_id = $2;", [req.session.user.id, req.params.id],
+        var addwishes = client.query("UPDATE wishlist set wish = true where user_id = $1 and attraction_id = $2;", [req.session.user.id, req.params.id],
         function(err, result) {
           done()
           if(err) {
@@ -195,14 +195,13 @@ function showAllAttractions(req, res, next) {
           console.log(err);
           return res.status(500).json({ success: false, data: err});
         }
-        var query = client.query("INSERT INTO wishlist ( user_id, attraction_id, wish ) VALUES ($1, $2, $3);",
-        [req.session.user.id, req.params.id, 'true' ],
+        var addwishes = client.query("UPDATE wishlist set havebeen = true where user_id = $1 and attraction_id = $2;", [req.session.user.id, req.params.id],
         function(err, result) {
           done()
           if(err) {
             return console.error('error, running query', err);
           }
-          res.wishes = result.rows
+          res.addHaveBeen = result.rows
           next()
         });
       });
@@ -230,10 +229,9 @@ function showAllAttractions(req, res, next) {
     }
 
 
-
 module.exports.showHaveBeen = showHaveBeen
 module.exports.showWishes = showWishes
-module.exports.showAllAttractionstoUser = showAllAttractionstoUser
+module.exports.addHaveBeen = addHaveBeen
 module.exports.addWishes = addWishes
 module.exports.deleteAttraction = deleteAttraction
 module.exports.editAttraction =  editAttraction // for admin only

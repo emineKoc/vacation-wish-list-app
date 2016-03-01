@@ -9,58 +9,42 @@
   </header>
 
 <%if (!user) {%>
-
-  <div class="container">
-  <div class="starter-template">
-  <% allAttractions.forEach(function(attraction){%>
-<%     console.log(attraction) %>
-    <div class="row">
-      <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-          <img src="<%= attraction.image %>" width="350">
-          <div class="caption">
-            <h4> <a href="attractions/<%= attraction.id %>" > <%= attraction.name %> </a></h4>
-        <span><%= attraction.location %> </span>
-        <form action="/attractions/<%=attraction.id%>?_method=DELETE" method="POST">
-          <input type="submit" value="Delete">
-        </form>
-        <a href="/attractions/<%= attraction.id %>/edit">
-          <button>Edit</button></a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <% })  %>
-</div>
-</div>
+<p> Please log in</p>
 <% }  %>
 
-
-
 <% if (user) { %>
+
   <div class="container">
   <div class="starter-template">
-  <% allAttractions.forEach(function(attraction){%>
-<%     console.log(attraction) %>
-    <div class="row">
+    <div class="profile-top">
+      <table>
+      <th><img style =" padding: 5px" src="<%= user.image_url %>" width = "100" ></th>
+      <th ><h4 style =" color: gray;text-align: left">   <p><%=user.f_name %> </p><p> <%=user.l_name %></p></h4></th>
+    </table>
+    </div>
+
+  <% allAttractions.forEach(function(el){%>
+    <!-- <div class="row"> -->
       <div class="col-sm-6 col-md-4">
         <div class="thumbnail">
-          <img src="<%= attraction.image %>" width="350">
+          <img src="<%= el.image %>" width="350">
           <div class="caption">
-            <h4> <a href="attractions/<%= user.id %>/<%= attraction.id %>" > <%= attraction.name %> </a></h4>
-        <span><%= attraction.location %> </span>
-        <form action="./attractions/<%=attraction.id%>?_method=DELETE" method="POST">
+            <h4> <a href="attractions/<%= el.id %>" > <%= el.name %> </a></h4>
+        <span><%= el.location %> </span>
+        <form action="./attractions/<%=el.id%>?_method=DELETE" method="POST">
           <input type="submit" value="Delete">
         </form>
-        <a href="/attractions/<%= attraction.id %>/edit">
+
+        <a href="/attractions/<%= el.id %>/edit">
           <button>Edit</button></a>
-          <form action="/<%=attraction.id%>?_method=PUT" method="POST">
+
+          <form action="attractions/<%=el.id%>/wishes?_method=PUT" method="POST">
             <input type="submit" value="Add to my wishlist">
           </form>
-          <form action="/<%=attraction.id%>?_method=PUT" method="POST">
+
+          <form action="attractions/<%=el.id%>/havebeen?_method=PUT" method="POST">
             <input type="submit" value="I have been here">
           </form>
-        </div>
       </div>
     </div>
   </div>

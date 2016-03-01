@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include ../partials/head %>
+</head>
+<header>
+  <%- include ../partials/nav %>
+</header>
+
+
+<div class="container">
+  <div id = "profile">
+    <div class ="col-md-3">
+      <P>Welcome <%= user.f_name %> </p>
+          <div><img src="<%= user.image_url %>"></div>
+        <a href="/attractions/"><button> See all attractions</button></a>
+    </div>
+  </div>
+
+    <div class ="col-md-8" style="float:left, position: relation">
+        <table>
+        <tr>
+          <th><h3>  WISH LIST</h3></th>
+          <th><h3> HAVE BEEN LIST</h3></th>
+        </tr>
+        <tr>
+        <td>
+        <%  wishes.forEach(function(places){  %>
+            <div class="col-md-4">
+              <img src="<%= places.image %>" class="img-circle img-thumbnail">
+              <h4><%= places.name %></h4>
+              <a href="#" class="btn btn-primary btn-sm" title="Enlace">I did it</a>
+            </div>
+
+          <% })  %>
+         </td>
+         <td>
+          <%  havebeen.forEach(function(places){  %>
+            <div class="col-md-4">
+                <img src="<%= places.image %>" class="img-circle img-thumbnail">
+                <h4><%= places.name %></h4>
+                <a href="#" class="btn btn-primary btn-sm" title="Enlace">I did it</a>
+              </div>
+            <% })  %>
+          </td>
+        </tr>
+      </table>
+          </div>
+
+     </div>
+   </div><!-- /.container -->
+   <%- include ../partials/footer %>
+ </body>
+ </html>

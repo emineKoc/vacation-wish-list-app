@@ -42,7 +42,7 @@ users.route('/login')
   // the destination page well before we finished sending the response to the client."
 
 req.session.save(function() {
-    res.redirect('/');
+    res.redirect('/hello');
   });
 })
 

@@ -47,14 +47,27 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
-app.get('/', function(req, res) {
-  console.log("my req.session.user", req.session.user)
+app.get('/',  function(req, res) {
   res.render('pages/home_profile', { user: req.session.user})
 });
 
 app.use('/users', userRoutes)
 app.use('/attractions', attractionRoutes)
 
+var db = require('./db/pgatt');
+app.get('/hello', db.showWishes, db.showHaveBeen , function(req, res) {
+  res.render('pages/main_profile', { user: req.session.user, havebeen : res.haveBeen , wishes : res.userWishes})
+})
+
+
+
 
 var port = process.env.PORT || 3000;
 var server = app.listen(port)
+
+
+
+// app.get('/', function(req, res) {
+//   console.log("my req.session.user", req.session.user)
+//   res.render('pages/home_profile', { user: req.session.user})
+// });
