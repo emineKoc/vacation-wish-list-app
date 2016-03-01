@@ -3,6 +3,8 @@ VACATION PLANNER
 * My Application will help users to organize their vacation wishes,
 and motivate them to ACTUALLY DO IT!
 
+HERE IS MY LINK TO HEROKU 
+https://vacationwish.herokuapp.com/
 
 * My users have to log in in order to be active in the site. They ll only see my homepage if they r not logged in.
   - I need a home page which leads to sign up or log in.
