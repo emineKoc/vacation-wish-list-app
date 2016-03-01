@@ -134,7 +134,16 @@ function deleteUser(req, res, next) {
       console.log(err);
       return res.status(500).json({ success: false, data: err});
     }
-    var query = client.query("DELETE FROM users WHERE id = $1;",[req.params.id], function(err, result) {
+    var query = client.query("DELETE FROM wishlist WHERE user_id = $1;",[req.params.id], function(err, result) {
+      console.log(req.params.id)
+      done()
+      if(err) {
+        return console.error('error, running query', err);
+      }
+      res.rows = result.rows
+      next()
+    });
+    var query1 = client.query("DELETE FROM users WHERE id = $1;",[req.params.id], function(err, result) {
       console.log(req.params.id)
       done()
       if(err) {

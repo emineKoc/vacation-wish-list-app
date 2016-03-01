@@ -49,15 +49,15 @@
           <div class="caption">
             <h4> <a href="attractions/<%= user.id %>/<%= attraction.id %>" > <%= attraction.name %> </a></h4>
         <span><%= attraction.location %> </span>
-        <form action="/attractions/<%=attraction.id%>?_method=DELETE" method="POST">
+        <form action="./attractions/<%=attraction.id%>?_method=DELETE" method="POST">
           <input type="submit" value="Delete">
         </form>
         <a href="/attractions/<%= attraction.id %>/edit">
           <button>Edit</button></a>
-          <form action="attractions/<%=attraction.id%>?_method=PUT" method="POST">
+          <form action="/<%=attraction.id%>?_method=PUT" method="POST">
             <input type="submit" value="Add to my wishlist">
           </form>
-          <form action="attractions/<%=attraction.id%>?_method=PUT" method="POST">
+          <form action="/<%=attraction.id%>?_method=PUT" method="POST">
             <input type="submit" value="I have been here">
           </form>
         </div>

@@ -60,7 +60,7 @@ function showAllAttractions(req, res, next) {
         console.log(err);
         return res.status(500).json({ success: false, data: err});
       }
-      var query = client.query("SELECT helper.name, helper.location, helper.description, helper.besttimetodo,  helper.category,  helper.image, helper.wish, helper.haveBeen from (SELECT id, name, location, description, besttimetodo,category, image , wishlist.user_id, wishlist.wish, wishlist.haveBeen from attractions left join wishlist on attractions.id = wishlist.attraction_id ) as helper left join users on helper.user_id = users.id where helper.wish = false and helper.haveBeen = false and users.id = $1;", [req.session.user.id],
+      var query = client.query("SELECT helper.name, helper.location, helper.description, helper.besttimetodo,  helper.category,  helper.image, helper.wish, helper.haveBeen from (SELECT id, name, location, description, besttimetodo,category, image , wishlist.user_id, wishlist.wish, wishlist.haveBeen from attractions inner join wishlist on attractions.id = wishlist.attraction_id ) as helper inner join users on helper.user_id = users.id where helper.wish = false and helper.haveBeen = false and users.id = $1;", [req.session.user.id],
       function(err, result) {
         done()
             if(err) {
@@ -124,7 +124,15 @@ function showAllAttractions(req, res, next) {
           console.log(err);
           return res.status(500).json({ success: false, data: err});
         }
-        var query = client.query("DELETE FROM attractions WHERE id = $1;", [req.params.id ],
+        var query = client.query("DELETE from wishlist where attraction_id = $1;", [req.params.id ],
+        function(err, result) {
+          done()
+          if(err) {
+            return console.error('error, running query', err);
+          }
+          next()
+        });
+        var query1 = client.query("DELETE from attractions where id = $1;", [req.params.id ],
         function(err, result) {
           done()
           if(err) {
